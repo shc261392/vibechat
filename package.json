@@ -1,0 +1,53 @@
+{
+  "name": "vibechat",
+  "version": "0.1.0",
+  "description": "A local desktop app with AI chatroom personalities that respond to screen captures, keeping you in good mood",
+  "main": "src/electron/main.ts",
+  "homepage": "./",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "authors": {
+    "name": "VibeChat Contributors"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run react-dev\" \"wait-on http://localhost:3000 && npm run electron-dev\"",
+    "react-dev": "react-scripts start",
+    "electron-dev": "concurrently \"tsc --watch src/electron\" \"wait-on http://localhost:3000 && electron dist/electron/main.js\"",
+    "build": "npm run build-react && npm run build-electron",
+    "build-react": "react-scripts build",
+    "build-electron": "tsc src/electron/main.ts --outDir dist --sourceMap false",
+    "dist": "npm run build && electron-builder",
+    "test": "react-scripts test"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "axios": "^1.6.0",
+    "sqlite3": "^5.1.6",
+    "screenshot-desktop": "^1.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/electron": "^1.8.0",
+    "typescript": "^5.0.0",
+    "react-scripts": "5.0.1",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.0",
+    "concurrently": "^8.0.0",
+    "wait-on": "^7.0.0"
+  },
+  "build": {
+    "appId": "com.vibechat.app",
+    "productName": "VibeChat",
+    "files": [
+      "build/**/*",
+      "dist/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  }
+}
